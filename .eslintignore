@@ -1,0 +1,12 @@
+/.git
+/.vscode
+/build
+/dist
+node_modules
+/openapi-config.ts
+/shared
+reportWebVitals.ts
+setupTests.ts
+/postcss.config.js
+tailwind.config.js
+next.config.js
