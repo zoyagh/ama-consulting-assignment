@@ -1,44 +1,8 @@
-const withTM = require('next-transpile-modules')(['react-pdf', 'pdfjs-dist']); // Add the pdfjs-dist module if it's not already included
+const withTM = require('next-transpile-modules')([]); 
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    i18n: {
-        locales: ['de', 'en'],
-        defaultLocale: 'en',
-        localeDetection: false,
-      },
-      reactStrictMode: true,
-      images: {
-        domains: [
-         
-        ],
-      },
-
-
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.svg$/,
-
-      use: ['@svgr/webpack'],
-    });
-    config.resolve.alias.canvas = false;
-
-    config.experiments = {...config.experiments, topLevelAwait: true};
-
-    config.module.rules.push({
-      test: /\.pdf$/,
-      use: [
-        {
-          loader: 'file-loader',
-        },
-      ],
-    });
-
-    config.resolve.fallback = {fs: false};
-
-    return config;
-  },
- 
+  reactStrictMode: true,
 
   async rewrites() {
     return [

@@ -20,11 +20,6 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "components/*": ["./src/components/*"],
-      "api/*": ["./src/api/*"],
-      "consts/*": ["./src/consts/*"],
-      "customHooks/*": ["./src/customHooks/*"],
-      "helpers/*": ["./src/helpers/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
