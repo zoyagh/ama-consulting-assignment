@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Records from '@/components/Records';
 
-
 export default function Home() {
   return (
     <>
@@ -13,5 +12,3 @@ export default function Home() {
     </>
   );
 }
-
-

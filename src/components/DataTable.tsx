@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import {useTable} from 'react-table';
 import styled from 'styled-components';
 import {Columns, FailedRecord} from './DetailsDialog';
+import clsx from 'clsx';
 
 interface DataTableProps {
   columns: Columns[];
@@ -30,34 +31,30 @@ const DataTable: FC<DataTableProps> = ({columns, data, className = ''}) => {
   const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = useTable({columns, data});
 
   return (
-    <div className="overflow-scroll max-h-[600px]">
-      <StyledTable {...getTableProps()} className={className}>
+    <div className="overflow-scroll max-h-[300px] md:max-h-[400px] ">
+      <StyledTable {...getTableProps()} className={clsx(className, 'overflow-scroll')}>
         <thead>
-          {headerGroups.map((headerGroup, i) => (
-            <div key={i}>
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column, ind) => (
-                  <div key={ind}>
-                    <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                  </div>
-                ))}
-              </tr>
-            </div>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup.id}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps()} key={column.id}>
+                  {column.render('Header')}
+                </th>
+              ))}
+            </tr>
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
+          {rows.map((row) => {
             prepareRow(row);
             return (
-              <div key={i}>
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell, ind) => (
-                    <div key={ind}>
-                      <td {...cell.getCellProps()}>{Array.isArray(cell.value) ? cell.value.join(', ') : cell.value}</td>
-                    </div>
-                  ))}
-                </tr>
-              </div>
+              <tr {...row.getRowProps()} key={row.id}>
+                {row.cells.map((cell) => (
+                  <td {...cell.getCellProps()} key={cell.column.id}>
+                    {Array.isArray(cell.value) ? cell.value.join(', ') : cell.value}
+                  </td>
+                ))}
+              </tr>
             );
           })}
         </tbody>

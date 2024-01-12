@@ -69,10 +69,11 @@ const UploadComponent: React.FC = () => {
         setFailedRecords(uploadResponse.data);
         setShowError(true);
       } else setShowSuccess(true);
-    } catch (error) {
+    } catch (error: any) {
       setFile(null);
-      setError('Error during uploading file');
-      console.log('Error during uploading file: ', error);
+      if (error?.response?.data?.message === 'error.invalidRecord') setError('Unprocessable records!');
+      else if (error?.response?.data?.message === 'error.fileNotFound') setError('File not found!');
+      else setError('Something went wrong!');
     } finally {
       setFile(null);
     }
@@ -93,29 +94,38 @@ const UploadComponent: React.FC = () => {
   return (
     <>
       <Stack className="m-10 h-auto flex items-center" spacing="2xl">
-        <Stack className="shadow-[0_0_55px_#DBDBDB] w-[900px] h-[600px] mx-10 my-10">
-          <div className="mx-auto w-[700px]">
+        <Stack className="shadow-[0_0_55px_#DBDBDB] w-[400px] sm:w-[600px] lg:w-[900px]  h-[500px] lg:h-[600px] mx-5  lg:mx-10 my-5 lg:my-10">
+          <div className="mx-auto w-[320px] sm:w-[500px] lg:w-[700px]">
             <Image
               src={img2}
               alt="upload img"
               width="414"
               height="200"
-              className={clsx('w-[414px] mx-auto -mb-[20px] duration-300', file ? ' ' : 'mt-[70px]')}
+              className={clsx(
+                'w-[300px] lg:w-[414px] mx-auto -mb-[18px] lg:-mb-[20px] duration-300',
+                file ? ' ' : 'sm:mt-[70px]'
+              )}
             />
             <div
               {...getRootProps()}
               className={clsx(
                 'border-2 border-dashed shadow-[0_0_25px_#d9dadb80] rounded-2xl px-6 text-center transition-all ease-in-out duration-300',
                 isDragActive ? 'border-blue-500' : 'border-gray border-opacity-60',
-                'h-60',
+                'h-52 lg:h-60',
                 'w-full flex items-center flex-col cursor-pointer'
               )}
             >
               <input {...getInputProps()} />
-              <Image src={img} alt="upload img" width="196" height="200" className={isDragActive ? 'mt-6' : '-mt-6'} />
+              <Image
+                src={img}
+                alt="upload img"
+                width="196"
+                height="200"
+                className={clsx('w-[150px] lg:w-[196px]', isDragActive ? 'mt-3 lg:mt-6' : '-mt-3 lg:-mt-6')}
+              />
               {!isDragActive && (
                 <div className="duration-300">
-                  <p className=" text-[27px] font-semibold -mt-9  opacity-70">Drag & Drop</p>
+                  <p className=" text-[23px] lg:text-[27px] font-semibold -mt-9  opacity-70">Drag & Drop</p>
                   <p className=" text-[16px] font-semibold mt-[3px] opacity-50">Your file here Or Browse to upload</p>
                   <p className=" text-[13px] font-bold mt-[3px] opacity-80" style={{color: '#4883E7'}}>
                     Only CSV and XML with max size of 15 MB.
@@ -154,12 +164,12 @@ const UploadComponent: React.FC = () => {
                 variant="success"
                 title="Success"
                 text="Your file successfuly validated!"
-                className="mt-5 w-[344px]"
+                className="mt-5 w-[300px] sm:w-[344px]"
               />
             )}
             {showError && (
               <Row className="w-full items-center justify-between">
-                <Alert title="Something whent wrong" text="Failed to validate the file!" className="mt-5 w-[344px]" />
+                <Alert title="Something went wrong" text="Failed to validate the file!" className="mt-5 w-[344px]" />
                 <Button color="error" className="text-white hover:opacity-70 " onClick={() => setDialogOpen(true)}>
                   Details
                 </Button>
@@ -175,7 +185,7 @@ const UploadComponent: React.FC = () => {
             width="414"
             height="200"
             className={clsx(
-              'absolute bottom-[19px]  duration-300 ',
+              'absolute bottom-[16px] sm:bottom-[2px] lg:bottom-[19px]  duration-300 w-[300px] sm:w-[400px] lg:w-[414px]',
               !file ? 'cursor-default' : 'cursor-pointer hover:w-[420px] '
             )}
             onClick={uploadFile}

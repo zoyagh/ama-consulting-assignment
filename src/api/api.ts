@@ -10,7 +10,6 @@ const api = axios.create({
 api.interceptors.response.use(
   (res) => res,
   async (err) => {
-    const originalRequest = err.config;
     return Promise.reject(err);
   }
 );

@@ -12,13 +12,7 @@ interface AlertProps extends React.PropsWithChildren {
   text?: string;
 }
 
-export const Alert: React.FC<AlertProps> = ({
-  children,
-  className,
-  variant = 'error',
-  title,
-  text,
-}) => {
+export const Alert: React.FC<AlertProps> = ({children, className, variant = 'error', title, text}) => {
   return (
     <div
       className={clsx(

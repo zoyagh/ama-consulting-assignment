@@ -10,12 +10,7 @@ interface BackdropProps {
 const Backdrop: FC<BackdropProps> = ({open, onClick}) => {
   return (
     <Fade in={open}>
-      {open ? (
-        <div
-          className="fixed left-0 top-0 right-0 bottom-0 flex z-30 bg-[#33436b66]"
-          onClick={onClick}
-        />
-      ) : null}
+      {open ? <div className="fixed left-0 top-0 right-0 bottom-0 flex z-30 bg-[#33436b66]" onClick={onClick} /> : null}
     </Fade>
   );
 };

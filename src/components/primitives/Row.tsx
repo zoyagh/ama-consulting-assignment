@@ -148,7 +148,7 @@ export const Row = forwardRef<HTMLDivElement, React.PropsWithChildren<RowProps>>
           alignSm && alignOptions.sm[alignSm],
           alignMd && alignOptions.md[alignMd],
           alignLg && alignOptions.lg[alignLg],
-          alignXl && alignOptions.xl[alignXl],
+          alignXl && alignOptions.xl[alignXl]
         )}
         style={style}
         tabIndex={tabIndex}

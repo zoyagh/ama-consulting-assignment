@@ -3,10 +3,7 @@ import type {ButtonColors} from '@/utils/buttonColors';
 import {ForwardedRef, forwardRef} from 'react';
 import clsx from 'clsx';
 
-import {
-  buttonBackgroundColors,
-  buttonBorders,
-} from '@/utils/';
+import {buttonBackgroundColors, buttonBorders} from '@/utils/';
 
 interface ButtonProps {
   className?: string;
@@ -25,20 +22,7 @@ interface ButtonProps {
 
 export const Button = forwardRef<HTMLButtonElement, React.PropsWithChildren<ButtonProps>>(
   (
-    {
-      children,
-      className,
-      style,
-      type,
-      color = 'default',
-      rounded,
-      disabled,
-      width,
-      height,
-      onClick,
-      onBlur,
-      onKeyDown,
-    },
+    {children, className, style, type, color = 'default', rounded, disabled, width, height, onClick, onBlur, onKeyDown},
     ref
   ) => {
     const handleBtnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -47,7 +31,7 @@ export const Button = forwardRef<HTMLButtonElement, React.PropsWithChildren<Butt
 
     return (
       <button
-        ref={ref  as ForwardedRef<HTMLButtonElement>}
+        ref={ref as ForwardedRef<HTMLButtonElement>}
         type={type}
         className={clsx(
           className,
@@ -61,7 +45,7 @@ export const Button = forwardRef<HTMLButtonElement, React.PropsWithChildren<Butt
           buttonBorders[color],
           'w-9 h-9',
           'text-sm',
-          !width && 'min-w-[92px]',
+          !width && 'min-w-[92px]'
         )}
         style={{
           ...style,
@@ -73,12 +57,7 @@ export const Button = forwardRef<HTMLButtonElement, React.PropsWithChildren<Butt
         onClick={handleBtnClick}
         onBlur={onBlur}
       >
-        <span
-          className={clsx(
-            'flex flex-[1_0_auto] items-center text-inherit leading-normal',
-            'justify-center',
-          )}
-        >
+        <span className={clsx('flex flex-[1_0_auto] items-center text-inherit leading-normal', 'justify-center')}>
           {children}
         </span>
       </button>

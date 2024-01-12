@@ -4,10 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <meta
-          name="description"
-          content=""
-        />
+        <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <body>

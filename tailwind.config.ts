@@ -1,9 +1,6 @@
 import type {Config} from 'tailwindcss';
 const plugin = require('tailwindcss/plugin');
 
-interface Theme {
-  colors: Record<string, string | Record<string, string>>;
-}
 
 const config: Config = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],

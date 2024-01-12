@@ -29,7 +29,7 @@ const DetailsDialog: FC<AssignDialogProps> = ({open, onClose, failedRecords}) =>
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <Stack className="m-10 h-auto w-[800px]" spacing="3xl">
+      <Stack className="m-10 h-auto w-[300px] md:[600px] lg:w-[800px]" spacing="3xl">
         <Stack>
           <h3 className="text-secondary text-2xl font-bold font-roobert text-center">Failed Records</h3>
           <div className="text-secondary text-center ">More information about the cause of each failed record!</div>
