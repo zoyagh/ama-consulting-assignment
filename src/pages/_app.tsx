@@ -18,6 +18,8 @@ const AppPage = ({Component, ...rest}: AppProps) => {
       <Main className={clsx(isMainRoute && 'bg-background-primary')}>
         <Component {...rest} />
       </Main>
+
+      <div id="portal-root" className="absolute top-0 left-0 contents" style={{contain: 'layout'}}></div>
     </App>
   );
 };

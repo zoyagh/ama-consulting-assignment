@@ -10,7 +10,7 @@ import Image from 'next/image';
 import img2 from '@/../public/uploadFile.png';
 import img3 from '@/../public/validate.png';
 import img4 from '@/../public/file.jpg';
-import { Constants } from '@/consts/contants';
+import {Constants} from '@/consts/contants';
 
 const UploadComponent: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -30,14 +30,16 @@ const UploadComponent: React.FC = () => {
     const acceptedFileTypes = ['text/xml', 'text/csv'];
 
     if (!acceptedFileTypes.includes(file.type)) {
+      file && setFile(null);
       setError('Invalid file type');
       return;
     }
 
-    const fileSizeInMb = file.size / Constants.FILE_SIZE_IN_MB
+    const fileSizeInMb = file.size / Constants.FILE_SIZE_IN_MB;
     const sizeLimitInMb = Constants.SIZE_LIMIT_IN_MB;
 
     if (fileSizeInMb > sizeLimitInMb) {
+      file && setFile(null);
       setError('File size exceeds the limit');
       return;
     }
@@ -59,16 +61,16 @@ const UploadComponent: React.FC = () => {
     showSuccess && setShowSuccess(false);
 
     try {
-
       const formData = new FormData();
       formData.append('file', file);
 
-      const uploadResponse = await api.post('/records/file', formData);
+      const uploadResponse = await api.post('/records/validate', formData);
       if (uploadResponse?.data?.length) {
         setFailedRecords(uploadResponse.data);
         setShowError(true);
       } else setShowSuccess(true);
     } catch (error) {
+      setFile(null);
       setError('Error during uploading file');
       console.log('Error during uploading file: ', error);
     } finally {
@@ -163,7 +165,7 @@ const UploadComponent: React.FC = () => {
                 </Button>
               </Row>
             )}
-            {error  && !showError && <Alert title="Error" text={error} className="mt-5 w-[344px]" />}
+            {error && !showError && <Alert title="Error" text={error} className="mt-5 w-[344px]" />}
           </div>
         </Stack>
         <div className="relative w-[100%] flex justify-center">

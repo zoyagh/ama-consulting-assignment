@@ -1,11 +1,12 @@
-import type { Config } from 'tailwindcss'
-
+import type {Config} from 'tailwindcss';
 const plugin = require('tailwindcss/plugin');
 
+interface Theme {
+  colors: Record<string, string | Record<string, string>>;
+}
+
 const config: Config = {
-  content: [
-    './src/**/*.{js,ts,jsx,tsx}'
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       fontFamily: {
@@ -13,8 +14,7 @@ const config: Config = {
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
     colors: {
@@ -54,10 +54,9 @@ const config: Config = {
       'ripple-light': 'rgba(0, 0, 0, 0.5)',
       'ripple-dark': 'rgba(255, 255, 255, 0.5)',
     },
-    
   },
   plugins: [
-    plugin(({addBase, theme}) => {
+    plugin(({addBase, theme}: any) => {
       addBase({
         '.scrollbar::-webkit-scrollbar': {
           width: '5px',
@@ -80,6 +79,6 @@ const config: Config = {
         },
       });
     }),
-  ]
-}
-export default config
+  ],
+};
+export default config;

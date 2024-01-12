@@ -1,10 +1,11 @@
 import React, {FC} from 'react';
 import {useTable} from 'react-table';
 import styled from 'styled-components';
+import {Columns, FailedRecord} from './DetailsDialog';
 
 interface DataTableProps {
-  columns: any[];
-  data: any[];
+  columns: Columns[];
+  data: FailedRecord[];
   className?: string;
 }
 
@@ -33,26 +34,30 @@ const DataTable: FC<DataTableProps> = ({columns, data, className = ''}) => {
       <StyledTable {...getTableProps()} className={className}>
         <thead>
           {headerGroups.map((headerGroup, i) => (
-            <tr key={i} {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column, ind) => (
-                <th key={ind} {...column.getHeaderProps()}>
-                  {column.render('Header')}
-                </th>
-              ))}
-            </tr>
+            <div key={i}>
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column, ind) => (
+                  <div key={ind}>
+                    <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                  </div>
+                ))}
+              </tr>
+            </div>
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
           {rows.map((row, i) => {
             prepareRow(row);
             return (
-              <tr key={i} {...row.getRowProps()}>
-                {row.cells.map((cell, ind) => (
-                  <td key={ind} {...cell.getCellProps()}>
-                    {Array.isArray(cell.value) ? cell.value.join(', ') : cell.value}
-                  </td>
-                ))}
-              </tr>
+              <div key={i}>
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell, ind) => (
+                    <div key={ind}>
+                      <td {...cell.getCellProps()}>{Array.isArray(cell.value) ? cell.value.join(', ') : cell.value}</td>
+                    </div>
+                  ))}
+                </tr>
+              </div>
             );
           })}
         </tbody>
